@@ -13,7 +13,8 @@ import pdfToText from 'react-pdftotext';
 const Dashboard = () => {
 
   const { user, token } = useSelector(state => state.auth);
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
+
 
   const colors = ["#9333ea", "#d97706", "#dc2626", "#0284c7", "#16a34a"];
   const [allResumes, setAllResumes] = useState([]);
@@ -30,7 +31,7 @@ const Dashboard = () => {
     const { data } = await api.get('/api/users/resumes', {
         headers: { Authorization: token }
     })
-    setAllResumes(data.resumes)
+    setAllResumes(data.resumes || [])
 } catch (error) {
     toast.error(error?.response?.data?.message || error.message)
 }
@@ -59,12 +60,12 @@ const Dashboard = () => {
     try {
       const resumeText = await pdfToText(resume)
       const { data } = await api.post('/api/ai/upload-resume', { title, resumeText }, {
-        headers: { Authorization: token }
+        headers: {  Authorization: token }
       })
       setTitle('')
       setResume(null)
       setShowUploadResume(false)
-      navigate(`/app/builder/${data.resume._id}`)
+      navigate(`/app/builder/${data.resumeId}`)
     } catch (error) {
       toast.error(error?.response?.data?.message || error.message)
     }
@@ -97,7 +98,7 @@ const Dashboard = () => {
     if(confirm){
     const { data } = await api.delete(`/api/resumes/delete/${resumeId}`, {
       headers: {
-        Authorization: token,
+         Authorization: token
       },
     });
 
@@ -134,7 +135,7 @@ const Dashboard = () => {
         <hr className='border-slate-300 my-6 sm:w-[305px]' />
 
         <div className="grid grid-cols-2 sm:flex flex-wrap gap-4">
-          {allResumes.map((resume, index) => {
+          {allResumes?.map((resume, index) => {
             const baseColor = colors[index % colors.length];
             return (
               <button
@@ -224,7 +225,7 @@ const Dashboard = () => {
                 className="hidden"
                 onChange={(e) => setResume(e.target.files[0])}
               />
-              <button disabled={isLoading} className='w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors'>
+              <button disabled={isLoading} className='w-full py-2 bg-green-600 text-white rounded hover:bg-green-700 transition-colors flex justify-center items-center gap-2'>
                 {isLoading && <LoaderCircleIcon className='animate-spin size-4 text-white' /> }
                 {isLoading ? 'Uploading...' : 'Upload Resume'}
               </button>

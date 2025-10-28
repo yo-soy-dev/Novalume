@@ -1,5 +1,5 @@
 import Resume from "../models/Resume.js";
-import ai  from "../configs/ai.js"; 
+import ai from "../configs/ai.js";
 
 export const enhanceProfessionalSummary = async (req, res) => {
   try {
@@ -9,11 +9,11 @@ export const enhanceProfessionalSummary = async (req, res) => {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    const completion = await ai.chat.completions.create({
+    const response = await ai.chat.completions.create({
       model: process.env.OPENAI_MODEL,
       messages: [
-        { 
-          role: "system", 
+        {
+          role: "system",
           content: "You are an expert in resume writing. Your task is to enhance the professional summary of a resume. The summary should be 1-2 sentences also highlighting key skills, experience, and career objectives. Make it compelling and ATS-friendly. Only return text, no options or anything else."
         },
         {
@@ -23,7 +23,7 @@ export const enhanceProfessionalSummary = async (req, res) => {
       ],
     });
 
-    const enhancedSummary = completion.choices[0].message.content;
+    const enhancedSummary = response.choices[0].message.content;
     return res.status(200).json({ enhancedSummary });
 
   } catch (error) {
@@ -39,11 +39,11 @@ export const enhanceJobDescription = async (req, res) => {
       return res.status(400).json({ message: 'Missing required fields' });
     }
 
-    const completion = await ai.chat.completions.create({
+    const response = await ai.chat.completions.create({
       model: process.env.OPENAI_MODEL,
       messages: [
-        { 
-          role: "system", 
+        {
+          role: "system",
           content: "You are an expert in resume writing. Your task is to enhance the job description of a resume. The job description should be 1-2 sentences also highlighting key responsibilities and achievements. Use action verbs and quantifiable results where possible. Make it ATS-friendly. Only return text, no options or anything else."
         },
         {
@@ -53,7 +53,7 @@ export const enhanceJobDescription = async (req, res) => {
       ],
     });
 
-    const enhancedSummary = completion.choices[0].message.content;
+    const enhancedSummary = response.choices[0].message.content;
     return res.status(200).json({ enhancedSummary });
 
   } catch (error) {
@@ -63,7 +63,12 @@ export const enhanceJobDescription = async (req, res) => {
 
 export const uploadResume = async (req, res) => {
   try {
-    const { resumeText, title, userId } = req.body;
+    const { resumeText, title } = req.body;
+    const userId = req.userId;
+
+    if (!userId) {
+      return res.status(401).json({ message: "User not authenticated" });
+    }
 
     if (!resumeText) {
       return res.status(400).json({ message: 'Missing required fields' });
@@ -133,7 +138,31 @@ Provide data in the following JSON format with no additional text before or afte
     const extractedData = response.choices[0].message.content;
     const parsedData = JSON.parse(extractedData);
 
-    const newResume = await Resume.create({ userId, title, ...parsedData });
+    // const newResume = await Resume.create({ userId, title, ...parsedData });
+
+    const resumePayload = {
+      userId, 
+      title: title || parsedData.title || "Untitled Resume",
+      public: parsedData.public || false,
+      template: parsedData.template || "classic",
+      accent_color: parsedData.accent_color || "#3B82F6",
+      professional_summary: parsedData.professional_summary || "",
+      skills: parsedData.skills || [],
+      personal_info: parsedData.personal_info || {},
+      experience: parsedData.experience || [],
+      projects: parsedData.projects || [],
+      education: parsedData.education || [],
+    };
+
+    // 🧩 Create in MongoDB
+    const newResume = await Resume.create(resumePayload);
+
+    // const newResume = await Resume.create({
+    //   userId,
+    //   ...parsedData,
+    //   title: title || parsedData.title || "Untitled Resume", 
+    // });
+
 
     return res.json({ resumeId: newResume._id });
 
