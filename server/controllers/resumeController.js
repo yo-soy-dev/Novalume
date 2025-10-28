@@ -129,6 +129,8 @@ export const getPublicResumeById = async (req, res) => {
 export const updateResume = async (req, res) => {
   try {
     const userId = req.userId;
+    
+    console.log("📥 Incoming update body:", req.body);
     const { resumeId, resumeData, removeBackground } = req.body;
     const image = req.file;
 

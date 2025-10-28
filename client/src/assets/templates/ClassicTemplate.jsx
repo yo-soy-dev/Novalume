@@ -101,7 +101,11 @@ const ClassicTemplate = ({ data, accentColor }) => {
 
                     <ul className="space-y-3 ">
                         {data.project.map((proj, index) => (
-                            <div key={index} className="flex justify-between items-start border-l-3 border-gray-300 pl-6">
+                            // <div key={index} className="flex justify-between items-start border-l-3 border-gray-300 pl-6">
+                            <div
+                                key={index}
+                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-3 border-gray-300 pl-6 gap-2"
+                            >
                                 <div className="flex flex-col">
                                     <div className="flex items-center gap-2">
                                         <li className="font-semibold text-gray-800 list-none">
