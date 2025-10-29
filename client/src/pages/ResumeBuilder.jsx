@@ -496,7 +496,8 @@ const ResumeBuilder = () => {
         }));
       }
 
-      toast.success(data.message);
+      // toast.success(data.message);
+      return Promise.resolve(data);
     } catch (error) {
       console.error("Error saving resume:", error);
     }
@@ -563,9 +564,8 @@ const ResumeBuilder = () => {
                         Math.min(prev + 1, sections.length - 1)
                       )
                     }
-                    className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${
-                      activeSectionIndex === sections.length - 1 && "opacity-50"
-                    }`}
+                    className={`flex items-center gap-1 p-3 rounded-lg text-sm font-medium text-gray-600 hover:bg-gray-50 transition-all ${activeSectionIndex === sections.length - 1 && "opacity-50"
+                      }`}
                     disabled={activeSectionIndex === sections.length - 1}
                   >
                     Next <ChevronRight className="size-4" />
@@ -646,15 +646,23 @@ const ResumeBuilder = () => {
               </div>
 
               <button
-                onClick={() =>
-                  toast.promise(saveResume(), { loading: "Saving..." })
-                }
-                className="bg-gradient-to-br from-green-100 to-green-200
+                // onClick={() =>
+                //   toast.promise(saveResume(), { loading: "Saving..." })
+                // }
+                  onClick={() =>
+                    toast.promise(saveResume(), {
+                      loading: "Saving...",
+                      success: "Saved successfully",
+                      error: "Failed to save",
+                    })
+                  }
+
+                  className="bg-gradient-to-br from-green-100 to-green-200
                   ring-green-300 text-green-600 ring hover:ring-green-400
                   transition-all rounded-md px-6 py-2 mt-6 text-sm"
               >
-                Save Changes
-              </button>
+                  Save Changes
+                </button>
             </div>
           </div>
 
@@ -700,11 +708,11 @@ const ResumeBuilder = () => {
                 Loading resume...
               </div>
             ) : resumeData && resumeData.template ? ( */}
-              <ResumePreview
-                data={resumeData}
-                template={resumeData?.template || "classic"}
-                accentColor={resumeData?.accent_color || "#3B82F6"}
-              />
+            <ResumePreview
+              data={resumeData}
+              template={resumeData?.template || "classic"}
+              accentColor={resumeData?.accent_color || "#3B82F6"}
+            />
             {/* ) 
              : (
           

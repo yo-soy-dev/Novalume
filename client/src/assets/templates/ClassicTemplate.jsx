@@ -104,7 +104,7 @@ const ClassicTemplate = ({ data, accentColor }) => {
                             // <div key={index} className="flex justify-between items-start border-l-3 border-gray-300 pl-6">
                             <div
                                 key={index}
-                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-3 border-gray-300 pl-6 gap-2"
+                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-4 border-gray-300 pl-4 gap-2 sm:pl-6 mb-4 w-full"
                             >
                                 <div className="flex flex-col">
                                     <div className="flex items-center gap-2">
