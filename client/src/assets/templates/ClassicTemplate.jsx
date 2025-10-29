@@ -104,11 +104,12 @@ const ClassicTemplate = ({ data, accentColor }) => {
                             // <div key={index} className="flex justify-between items-start border-l-3 border-gray-300 pl-6">
                             <div
                                 key={index}
-                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-4 border-gray-300 pl-4 gap-2 sm:pl-6 mb-4 w-full flex-wrap break-words"
+                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-4 border-gray-300 pl-4 gap-2 sm:pl-6 mb-4 w-full flex-wrap break-words overflow-hidden"
                             >
                                 <div className="flex flex-col">
                                     <div className="flex items-center gap-2">
-                                        <li className="font-semibold text-gray-800 list-none">
+                                        {/* <li className="font-semibold text-gray-800 list-none"> */}
+                                        <li className="font-semibold text-gray-800 list-none break-words max-w-full">
                                             {proj.link ? (
                                                 <a
                                                     href={proj.link}
@@ -124,10 +125,14 @@ const ClassicTemplate = ({ data, accentColor }) => {
                                         </li>
                                     </div>
                                     {proj.description && (
-                                        <p className="text-gray-600 mt-1">{proj.description}</p>
+                                        // <p className="text-gray-600 mt-1">
+                                        <p className="text-gray-600 mt-1 break-words whitespace-normal overflow-hidden text-ellipsis">
+                                            {proj.description}
+                                            </p>
                                     )}
                                 </div>
-                                <div className="text-sm text-gray-600 text-right">
+                                {/* <div className="text-sm text-gray-600 text-right"> */}
+                                <div className="text-sm text-gray-600 text-right sm:text-right text-left break-words w-full sm:w-auto">
                                     <p>
                                         {formatDate(proj.start_date)} - {proj.end_date ? formatDate(proj.end_date) : "Present"}
                                     </p>
