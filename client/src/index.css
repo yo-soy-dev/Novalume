@@ -16,9 +16,8 @@
       @apply outline-none focus:ring border border-gray-300 rounded-lg focus:ring-blue-500 focus:border-blue-500 resize-none;
    }
 }
-* {
+
+html, body {
   max-width: 100%;
-  box-sizing: border-box;
-  word-wrap: break-word;
-  overflow-wrap: anywhere;
+  overflow-x: hidden;
 }

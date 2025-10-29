@@ -104,18 +104,18 @@ const ClassicTemplate = ({ data, accentColor }) => {
                             // <div key={index} className="flex justify-between items-start border-l-3 border-gray-300 pl-6">
                             <div
                                 key={index}
-                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-4 border-gray-300 pl-4 gap-2 sm:pl-6 mb-4 w-full flex-wrap break-words overflow-hidden"
+                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-4 border-gray-300 pl-4 gap-2 sm:pl-6 mb-4 w-full flex-wrap break-words overflow-hidden overflow-x-auto sm:overflow-visible"
                             >
                                 <div className="flex flex-col">
                                     <div className="flex items-center gap-2">
                                         {/* <li className="font-semibold text-gray-800 list-none"> */}
-                                        <li className="font-semibold text-gray-800 list-none break-words max-w-full">
+                                        <li className="font-semibold text-gray-800 list-none break-words max-w-full overflow-hidden">
                                             {proj.link ? (
                                                 <a
                                                     href={proj.link}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-gray-800 hover:text-blue-600 hover:underline break-words max-w-full"
+                                                    className="text-gray-800 hover:text-blue-600 hover:underline break-all max-w-full block"
                                                 >
                                                     {proj.name}
                                                 </a>
@@ -126,7 +126,7 @@ const ClassicTemplate = ({ data, accentColor }) => {
                                     </div>
                                     {proj.description && (
                                         // <p className="text-gray-600 mt-1">
-                                        <p className="text-gray-600 mt-1 break-words whitespace-normal overflow-hidden text-ellipsis">
+                                        <p className="text-gray-600 mt-1 break-words whitespace-normal overflow-hidden text-ellipsis max-w-full">
                                             {proj.description}
                                             </p>
                                     )}
