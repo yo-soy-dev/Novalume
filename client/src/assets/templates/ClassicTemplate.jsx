@@ -104,7 +104,7 @@ const ClassicTemplate = ({ data, accentColor }) => {
                             // <div key={index} className="flex justify-between items-start border-l-3 border-gray-300 pl-6">
                             <div
                                 key={index}
-                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-4 border-gray-300 pl-4 gap-2 sm:pl-6 mb-4 w-full"
+                                className="flex flex-col sm:flex-row sm:justify-between sm:items-start border-l-4 border-gray-300 pl-4 gap-2 sm:pl-6 mb-4 w-full flex-wrap break-words"
                             >
                                 <div className="flex flex-col">
                                     <div className="flex items-center gap-2">
@@ -114,7 +114,7 @@ const ClassicTemplate = ({ data, accentColor }) => {
                                                     href={proj.link}
                                                     target="_blank"
                                                     rel="noopener noreferrer"
-                                                    className="text-gray-800 hover:text-blue-600 hover:underline"
+                                                    className="text-gray-800 hover:text-blue-600 hover:underline break-words max-w-full"
                                                 >
                                                     {proj.name}
                                                 </a>
