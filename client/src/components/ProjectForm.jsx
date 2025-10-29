@@ -29,7 +29,7 @@ const ProjectForm = ({ data, onChange }) => {
 
     return (
         // <div>
-         <div className="max-w-full p-4 sm:p-6 bg-white rounded-md shadow-sm">
+         <div className="max-w-full p-4 sm:p-6 bg-white rounded-md shadow-sm">
             <div className='flex items-center justify-between'>
                 <div>
                     <h3 className='flex items-center gap-2 text-lg font-semibold
@@ -61,7 +61,7 @@ const ProjectForm = ({ data, onChange }) => {
                                 type="text"
                                 placeholder="Project Name"
                                 // className="px-3 py-2 text-sm rounded-lg"
-                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 break-words"
+                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none break-words"
                             />
                             <input
                                 value={project.type || ""}
@@ -69,7 +69,7 @@ const ProjectForm = ({ data, onChange }) => {
                                 type="text"
                                 placeholder="Project Type"
                                 // className="px-3 py-2 text-sm rounded-lg"
-                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 break-words"
+                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none break-words"
                             />
                             <input
                                 value={project.description || ""}
@@ -83,14 +83,14 @@ const ProjectForm = ({ data, onChange }) => {
                                     onChange={(e) => updateProject(index, "start_date", e.target.value)}
                                     type="month"
                                     // className="px-3 py-2 text-sm w-1/2"
-                                    className="w-full md:w-auto px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                                    className="w-full md:w-auto px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none"
                                 />
                                 <input
                                     value={project.end_date || ""}
                                     onChange={(e) => updateProject(index, "end_date", e.target.value)}
                                     type="month"
                                     // className="px-3 py-2 text-sm w-1/2"
-                                    className="w-full md:w-auto px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
+                                    className="w-full md:w-auto px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none"
                                 />
                             </div>
 
