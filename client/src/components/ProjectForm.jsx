@@ -28,7 +28,8 @@ const ProjectForm = ({ data, onChange }) => {
     }
 
     return (
-        <div>
+        // <div>
+         <div className="max-w-full p-4 sm:p-6 bg-white rounded-md shadow-sm">
             <div className='flex items-center justify-between'>
                 <div>
                     <h3 className='flex items-center gap-2 text-lg font-semibold
@@ -53,20 +54,22 @@ const ProjectForm = ({ data, onChange }) => {
                                 <Trash2 className="size-4" />
                             </button>
                         </div>
-                        <div className="grid md:grid-cols-2 gap-3">
+                        <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                             <input
                                 value={project.name || ""}
                                 onChange={(e) => updateProject(index, "name", e.target.value)}
                                 type="text"
                                 placeholder="Project Name"
-                                className="px-3 py-2 text-sm rounded-lg"
+                                // className="px-3 py-2 text-sm rounded-lg"
+                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 break-words"
                             />
                             <input
                                 value={project.type || ""}
                                 onChange={(e) => updateProject(index, "type", e.target.value)}
                                 type="text"
                                 placeholder="Project Type"
-                                className="px-3 py-2 text-sm rounded-lg"
+                                // className="px-3 py-2 text-sm rounded-lg"
+                                 className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400 break-words"
                             />
                             <input
                                 value={project.description || ""}
@@ -79,13 +82,15 @@ const ProjectForm = ({ data, onChange }) => {
                                     value={project.start_date || ""}
                                     onChange={(e) => updateProject(index, "start_date", e.target.value)}
                                     type="month"
-                                    className="px-3 py-2 text-sm w-1/2"
+                                    // className="px-3 py-2 text-sm w-1/2"
+                                    className="w-full md:w-auto px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
                                 />
                                 <input
                                     value={project.end_date || ""}
                                     onChange={(e) => updateProject(index, "end_date", e.target.value)}
                                     type="month"
-                                    className="px-3 py-2 text-sm w-1/2"
+                                    // className="px-3 py-2 text-sm w-1/2"
+                                    className="w-full md:w-auto px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-400"
                                 />
                             </div>
 
