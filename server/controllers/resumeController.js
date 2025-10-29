@@ -134,16 +134,49 @@ export const updateResume = async (req, res) => {
     const { resumeId, resumeData, removeBackground } = req.body;
     const image = req.file;
 
+    console.log("===== UPDATE RESUME REQUEST =====");
+    console.log("User ID:", userId);
+    console.log("Resume ID:", resumeId);
+    console.log("Has image file:", !!image);
+    console.log("Remove background:", removeBackground);
+    console.log("Raw resumeData type:", typeof resumeData);
+
+    // 🧩 Parse resumeData safely
     let resumeDataCopy =
       typeof resumeData === "string" ? JSON.parse(resumeData) : resumeData;
 
-    if (resumeDataCopy._id) delete resumeDataCopy._id;
+    if (!resumeDataCopy) {
+      console.log("❌ No resumeData received");
+      return res.status(400).json({ message: "Missing resume data" });
+    }
 
+    console.log("Incoming resumeData keys:", Object.keys(resumeDataCopy || {}));
+    console.log("Incoming title:", resumeDataCopy.title);
+
+    // 🧩 Clean up ID
+    if (resumeDataCopy._id) {
+      delete resumeDataCopy._id;
+      console.log("Removed _id from resumeDataCopy");
+    }
+
+    // 🧩 Find old resume
     const oldResume = await Resume.findOne({ userId, _id: resumeId });
-    if (!oldResume) return res.status(404).json({ message: "Resume not found" });
+    if (!oldResume) {
+      console.log("❌ Resume not found for user:", userId);
+      return res.status(404).json({ message: "Resume not found" });
+    }
 
-    // Handle image upload
+    console.log("Old title in DB:", oldResume.title);
+
+    // 🧠 Preserve title if missing or blank
+    if (!resumeDataCopy.title || resumeDataCopy.title.trim() === "") {
+      console.log("⚠️ Title missing in update — preserving old title");
+      resumeDataCopy.title = oldResume.title;
+    }
+
+    // 🖼️ Handle image upload
     if (image) {
+      console.log("📸 Uploading new image to ImageKit...");
       const imageBufferData = fs.createReadStream(image.path);
       const response = await imageKit.files.upload({
         file: imageBufferData,
@@ -155,6 +188,8 @@ export const updateResume = async (req, res) => {
             (removeBackground ? ",e-bgremove" : ""),
         },
       });
+
+      console.log("✅ Image uploaded:", response.url);
       resumeDataCopy.personal_info = {
         ...oldResume.personal_info,
         ...resumeDataCopy.personal_info,
@@ -162,19 +197,31 @@ export const updateResume = async (req, res) => {
       };
     }
 
-    // ✅ Deep merge safely
+    // 🧩 Merge old and new data
     const updatedResumeData = _.merge({}, oldResume.toObject(), resumeDataCopy);
     updatedResumeData.updatedAt = new Date();
 
+    console.log("✅ Final merged data preview:");
+    console.log({
+      title: updatedResumeData.title,
+      updatedAt: updatedResumeData.updatedAt,
+      hasPersonalInfo: !!updatedResumeData.personal_info,
+      hasExperience: !!updatedResumeData.experience,
+    });
+
+    // 🧩 Save
     const resume = await Resume.findOneAndUpdate(
       { userId, _id: resumeId },
       updatedResumeData,
       { new: true }
     );
 
+    console.log("✅ Resume successfully updated in MongoDB");
+    console.log("===========================================");
+
     return res.status(200).json({ message: "Saved successfully", resume });
   } catch (error) {
-    console.error("Update Resume Error:", error);
+    console.error("❌ Update Resume Error:", error);
     return res.status(400).json({ message: error.message });
   }
 };

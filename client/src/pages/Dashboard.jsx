@@ -91,26 +91,71 @@ const Dashboard = () => {
 }
   };
 
-  const deleteResume = async (resumeId) => {
+//   const deleteResume = async (resumeId) => {
     
-    try {
-    const confirm = window.confirm("Are you sure you want to delete this resume?");
-    if(confirm){
-    const { data } = await api.delete(`/api/resumes/delete/${resumeId}`, {
-      headers: {
-         Authorization: token
-      },
-    });
+//     try {
+//     const confirm = window.confirm("Are you sure you want to delete this resume?");
+//     if(confirm){
+//     const { data } = await api.delete(`/api/resumes/delete/${resumeId}`, {
+//       headers: {
+//          Authorization: token
+//       },
+//     });
 
-    setAllResumes((allResumes) =>
-      allResumes.filter((resume) => resume._id !== resumeId)
-    );
+//     setAllResumes((allResumes) =>
+//       allResumes.filter((resume) => resume._id !== resumeId)
+//     );
 
-    toast.success(data.message || "Resume deleted successfully");
-  }
-  } catch (error) {
-    toast.error(error?.response?.data?.message || error.message);
-  }
+//     toast.success(data.message || "Resume deleted successfully");
+//   }
+//   } catch (error) {
+//     toast.error(error?.response?.data?.message || error.message);
+//   }
+// };
+
+
+const handleDeleteConfirm = (resumeId) => {
+  toast((t) => (
+    <div className="text-sm">
+      <p className="font-medium text-gray-800">Delete this resume?</p>
+      <p className="text-xs text-gray-500 mt-1">
+        This action cannot be undone.
+      </p>
+
+      <div className="flex justify-end gap-2 mt-3">
+        {/* ✅ Confirm button */}
+        <button
+          onClick={async () => {
+            toast.dismiss(t.id);
+            try {
+              const { data } = await api.delete(`/api/resumes/delete/${resumeId}`, {
+                headers: { Authorization: token },
+              });
+
+              setAllResumes((allResumes) =>
+                allResumes.filter((resume) => resume._id !== resumeId)
+              );
+
+              toast.success(data.message || "Resume deleted successfully");
+            } catch (error) {
+              toast.error(error?.response?.data?.message || error.message);
+            }
+          }}
+          className="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded-md text-xs"
+        >
+          Yes, Delete
+        </button>
+
+        {/* ❌ Cancel button */}
+        <button
+          onClick={() => toast.dismiss(t.id)}
+          className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-md text-xs"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  ));
 };
 
   useEffect(() => {
@@ -161,7 +206,7 @@ const Dashboard = () => {
                   Updated on {new Date(resume.updatedAt).toLocaleDateString()}
                 </p>
                 <div onClick={e => e.stopPropagation()} className='absolute top-1 right-1 group-hover:flex items-center hidden'>
-                  <TrashIcon onClick={() => deleteResume(resume._id)} className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
+                  <TrashIcon onClick={() => handleDeleteConfirm(resume._id)} className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
                   <PencilIcon onClick={() => { setEditResumeId(resume._id); setTitle(resume.title) }} className="size-7 p-1.5 hover:bg-white/50 rounded text-slate-700 transition-colors" />
                 </div>
 

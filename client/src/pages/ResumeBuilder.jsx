@@ -385,24 +385,43 @@ const ResumeBuilder = () => {
   const loadExistingResume = async () => {
     setIsLoading(true);
     try {
+      console.log("🔄 Fetching resume from backend:", `/api/resumes/get/${resumeId}`);
       const { data } = await api.get(`/api/resumes/get/${resumeId}`, {
         headers: { Authorization: token },
       });
 
-      const fetched = data?.resume;
+      console.log("📥 Resume fetched from API:", data);
+
+      const fetched = data?.resume || data;
 
       if (fetched && typeof fetched === "object") {
         // ✅ Merge safely without wiping defaults
-        setResumeData(prev => ({
-          ...prev,
-          ...(fetched || {}),
-          personal_info: {
-            ...prev.personal_info,
-            ...(fetched?.personal_info || {}),
-          },
-          template: fetched?.template || prev.template || "classic",
-          accent_color: fetched?.accent_color || prev.accent_color || "#3B82F6",
-        }));
+        console.log("✅ Merging fetched resume data:", fetched);
+
+        setResumeData(prev => {
+          const merged = {
+            ...prev, // keep existing frontend data first
+            ...(fetched || {}), // overwrite with backend data (truth source)
+            personal_info: {
+              ...prev.personal_info,
+              ...(fetched?.personal_info || {}),
+            },
+            professional_summary: fetched?.professional_summary ?? prev.professional_summary,
+            experience: fetched?.experience ?? prev.experience,
+            education: fetched?.education ?? prev.education,
+            project: fetched?.project ?? prev.project,
+            skills: fetched?.skills ?? prev.skills,
+            template: fetched?.template || prev.template || "classic",
+            accent_color: fetched?.accent_color || prev.accent_color || "#3B82F6",
+          };
+
+          // ✅ Fix title blanking issue
+          merged.title = fetched?.title || prev.title || "Untitled Resume";
+
+          return merged;
+        });
+
+
 
         document.title = fetched?.title || "Untitled Resume";
       }
@@ -466,26 +485,37 @@ const ResumeBuilder = () => {
 
   const saveResume = async () => {
     try {
+      console.log("💾 Preparing to save resume:", resumeData);
       let updatedResumeData = structuredClone(resumeData);
       if (typeof resumeData.personal_info.image === 'object') {
         delete updatedResumeData.personal_info.image;
+        console.log("🧹 Removed image object before upload");
       }
 
       const formData = new FormData();
       formData.append("resumeId", resumeId);
       formData.append('resumeData', JSON.stringify(updatedResumeData));
 
-      if (removeBackground) formData.append("removeBackground", "yes");
+      if (removeBackground) {
+        console.log("🎨 removeBackground flag set");
+        formData.append("removeBackground", "yes");
+      }
       if (typeof resumeData.personal_info.image === 'object') {
+        console.log("📤 Attaching image file");
         formData.append("image", resumeData.personal_info.image);
       }
+
+      console.log("📦 Sending update request with title:", updatedResumeData.title);
 
       const { data } = await api.put('/api/resumes/update', formData, {
         headers: { Authorization: token },
       });
 
+      console.log("✅ Save response from backend:", data);
+
       // ✅ Prevent null overwrites
       if (data?.resume && typeof data.resume === "object") {
+        console.log("🔄 Updating frontend state with:", data.resume);
         setResumeData(prev => ({
           ...prev,
           ...(data.resume || {}),
@@ -502,6 +532,11 @@ const ResumeBuilder = () => {
       console.error("Error saving resume:", error);
     }
   };
+
+  useEffect(() => {
+    console.log("🧠 resumeData changed:", resumeData);
+  }, [resumeData]);
+
 
   return (
     <div>
@@ -597,6 +632,7 @@ const ResumeBuilder = () => {
                         professional_summary: data,
                       }))
                     }
+                    setResumeData={setResumeData}
                   />
                 )}
                 {activeSection.id === "experience" && (
@@ -649,20 +685,20 @@ const ResumeBuilder = () => {
                 // onClick={() =>
                 //   toast.promise(saveResume(), { loading: "Saving..." })
                 // }
-                  onClick={() =>
-                    toast.promise(saveResume(), {
-                      loading: "Saving...",
-                      success: "Saved successfully",
-                      error: "Failed to save",
-                    })
-                  }
+                onClick={() =>
+                  toast.promise(saveResume(), {
+                    loading: "Saving...",
+                    success: "Saved successfully",
+                    error: "Failed to save",
+                  })
+                }
 
-                  className="bg-gradient-to-br from-green-100 to-green-200
+                className="bg-gradient-to-br from-green-100 to-green-200
                   ring-green-300 text-green-600 ring hover:ring-green-400
                   transition-all rounded-md px-6 py-2 mt-6 text-sm"
               >
-                  Save Changes
-                </button>
+                Save Changes
+              </button>
             </div>
           </div>
 
