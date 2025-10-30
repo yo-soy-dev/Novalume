@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin, Linkedin, Globe } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Globe, Github } from "lucide-react";
 
 const ModernTemplate = ({ data, accentColor }) => {
 	const formatDate = (dateStr) => {
@@ -46,13 +46,43 @@ const ModernTemplate = ({ data, accentColor }) => {
 					{data.personal_info?.linkedin && (
 						<a target="_blank" href={data.personal_info?.linkedin} className="flex items-center gap-2">
 							<Linkedin className="size-4" />
-							<span className="break-all text-xs">{data.personal_info.linkedin.split("https://www.")[1] ? data.personal_info.linkedin.split("https://www.")[1] : data.personal_info.linkedin}</span>
+							{/* <span className="break-all text-xs">{data.personal_info.linkedin.split("https://www.")[1] ? data.personal_info.linkedin.split("https://www.")[1] : data.personal_info.linkedin}</span> */}
+							 <a
+                                href={data.personal_info.linkedin}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:underline hover:text-blue-600"
+                            >
+                                {data.personal_info.linkedin_name || "LinkedIn"}
+                            </a>
+						</a>
+					)}
+					{data.personal_info?.github && (
+						<a target="_blank" href={data.personal_info?.github} className="flex items-center gap-2">
+							<Github className="size-4" />
+							{/* <span className="break-all text-xs">{data.personal_info.linkedin.split("https://www.")[1] ? data.personal_info.linkedin.split("https://www.")[1] : data.personal_info.linkedin}</span> */}
+							 <a
+                                href={data.personal_info.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:underline hover:text-blue-600"
+                            >
+                                {data.personal_info.github_name || "LinkedIn"}
+                            </a>
 						</a>
 					)}
 					{data.personal_info?.website && (
 						<a target="_blank" href={data.personal_info?.website} className="flex items-center gap-2">
 							<Globe className="size-4" />
-							<span className="break-all text-xs">{data.personal_info.website.split("https://")[1] ? data.personal_info.website.split("https://")[1] : data.personal_info.website}</span>
+							{/* <span className="break-all text-xs">{data.personal_info.website.split("https://")[1] ? data.personal_info.website.split("https://")[1] : data.personal_info.website}</span> */}
+							<a
+                                href={data.personal_info.github}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                                className="text-gray-700 hover:underline hover:text-blue-600"
+                            >
+                                {data.personal_info.github_name || "Github"}
+                            </a>
 						</a>
 					)}
 				</div>

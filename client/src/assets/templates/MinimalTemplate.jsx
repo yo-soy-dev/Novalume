@@ -28,10 +28,36 @@ const MinimalTemplate = ({ data, accentColor }) => {
                     {data.personal_info?.phone && <span>{data.personal_info.phone}</span>}
                     {data.personal_info?.location && <span>{data.personal_info.location}</span>}
                     {data.personal_info?.linkedin && (
-                        <span className="break-all">{data.personal_info.linkedin}</span>
+                        // <span className="break-all">{data.personal_info.linkedin}</span>
+                        <a
+                            href={data.personal_info.linkedin}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-700 hover:underline hover:text-blue-600"
+                        >
+                            {data.personal_info.linkedin_name || "Linkedin"}
+                        </a>
+                    )}
+                    {data.personal_info?.github && (
+                        <a
+                            href={data.personal_info.github}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-700 hover:underline hover:text-blue-600"
+                        >
+                            {data.personal_info.github_name || "GitHub"}
+                        </a>
                     )}
                     {data.personal_info?.website && (
-                        <span className="break-all">{data.personal_info.website}</span>
+                        // <span className="break-all">{data.personal_info.website}</span>
+                        <a
+                            href={data.personal_info.website}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-gray-700 hover:underline hover:text-blue-600"
+                        >
+                            {data.personal_info.website_name || "Website"}
+                        </a>
                     )}
                 </div>
             </header>

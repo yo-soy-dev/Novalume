@@ -1,4 +1,4 @@
-import { Mail, Phone, MapPin } from "lucide-react";
+import { Mail, Phone, MapPin, Linkedin, Globe, Github } from "lucide-react";
 
 const MinimalImageTemplate = ({ data, accentColor }) => {
     const formatDate = (dateStr) => {
@@ -67,8 +67,44 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                     <span>{data.personal_info.location}</span>
                                 </div>
                             )}
-                        </div>
-                    </section>
+
+                    {data.personal_info?.linkedin && (
+                        <a
+                        href={data.personal_info.linkedin}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 hover:text-blue-600"
+                        >
+                            <Linkedin size={14} style={{ color: accentColor }} />
+                            <span>{data.personal_info.linkedin_name || "LinkedIn"}</span>
+                        </a>
+                    )}
+
+                    {data.personal_info?.github && (
+                        <a
+                        href={data.personal_info.github}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 hover:text-blue-600"
+                        >
+                            <Github size={14} style={{ color: accentColor }} />
+                            <span>{data.personal_info.github_name || "GitHub"}</span>
+                        </a>
+                    )}
+
+                    {data.personal_info?.website && (
+                        <a
+                        href={data.personal_info.website}
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="flex items-center gap-2 hover:text-blue-600"
+                        >
+                            <Globe size={14} style={{ color: accentColor }} />
+                            <span>{data.personal_info.website_name || "Portfolio"}</span>
+                        </a>
+                    )}
+                    </div>
+                </section>
 
                     {/* Education */}
                     {data.education && data.education.length > 0 && (

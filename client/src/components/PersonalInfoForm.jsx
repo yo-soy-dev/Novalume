@@ -24,8 +24,12 @@ const PersonalInfoForm = ({ data, onChange, removeBackground, setRemoveBackgroun
         { key: "phone", label: "Phone Number", icon: Phone, type: "tel" },
         { key: "location", label: "Location", icon: MapPin, type: "text" },
         { key: "profession", label: "Profession", icon: BriefcaseBusiness, type: "text" },
-        { key: "linkedin", label: "LinkedIn Profile", icon: Linkedin, type: "url" },
-        { key: "website", label: "Personal Website", icon: Globe, type: "url" }
+        { key: "linkedin", label: "LinkedIn Profile (URL)", icon: Linkedin, type: "url" },
+         { key: "linkedin_name", label: "LinkedIn Display Name", icon: Linkedin, type: "text" },
+          { key: "github", label: "GitHub Profile (URL)", icon: Globe, type: "url" },
+    { key: "github_name", label: "GitHub Display Name", icon: Globe, type: "text" },
+        { key: "website", label: "Personal Website (URL)", icon: Globe, type: "url" },
+        { key: "website_name", label: "Website Display Name", icon: Globe, type: "text" },
     ];
 
     return (
