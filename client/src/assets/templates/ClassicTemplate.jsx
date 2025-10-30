@@ -18,6 +18,12 @@ const ClassicTemplate = ({ data, accentColor }) => {
                     {data.personal_info?.full_name || "Your Name"}
                 </h1>
 
+                {data.personal_info?.profession && (
+                    <p className="text-base text-gray-600 mb-3">
+                        {data.personal_info.profession}
+                    </p>
+                )}
+
                 <div className="flex flex-wrap justify-center gap-2 sm:gap:4 text-xs text-gray-600 break-all text-center">
                     {data.personal_info?.email && (
                         <div className="flex items-center gap-1">
@@ -123,13 +129,24 @@ const ClassicTemplate = ({ data, accentColor }) => {
                                                 proj.name
                                             )}
                                         </li>
+                                        {proj.tech && (
+                                            <>
+                                                <div className="flex items-center gap-2 mt-0.5">
+                                                    <span className="text-slate-400 text-xs relative top-[1px]">•</span>
+                                                    <span className="text-slate-600 text-sm italic">{proj.tech}</span>
+                                                </div>
+                                            </>
+                                        )}
+
+
                                     </div>
                                     {proj.description && (
                                         // <p className="text-gray-600 mt-1">
                                         <p className="text-gray-600 mt-1 break-words whitespace-normal overflow-hidden text-ellipsis max-w-full">
                                             {proj.description}
-                                            </p>
+                                        </p>
                                     )}
+
                                 </div>
                                 {/* <div className="text-sm text-gray-600 text-right"> */}
                                 <div className="text-sm text-gray-600 text-right sm:text-right text-left break-words w-full sm:w-auto">

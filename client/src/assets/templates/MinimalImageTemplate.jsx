@@ -80,6 +80,7 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                 {data.education.map((edu, index) => (
                                     <div key={index}>
                                         <p className="font-semibold uppercase">{edu.degree}</p>
+                                        <p className="text-sm text-zinc-700">{edu.field}</p>
                                         <p className="text-zinc-600">{edu.institution}</p>
                                         <p className="text-xs text-zinc-500">
                                             {formatDate(edu.graduation_date)}
@@ -177,10 +178,11 @@ const MinimalImageTemplate = ({ data, accentColor }) => {
                                                 project.name
                                             )}
                                         </h3>
-                                        {project.type && (
-                                            <p className="text-sm mb-1" style={{ color: accentColor }}>
-                                                {project.type}
-                                            </p>
+                                        {project.tech && (
+                                            <>
+                                                <span className="text-slate-500 mx-1">•</span>
+                                                <span className="text-slate-800 text-sm italic">{project.tech}</span>
+                                            </>
                                         )}
                                         <p className="text-xs text-zinc-500">
                                             {formatDate(project.start_date)} - {project.end_date ? formatDate(project.end_date) : "Present"}

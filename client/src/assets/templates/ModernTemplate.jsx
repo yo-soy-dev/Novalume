@@ -18,6 +18,12 @@ const ModernTemplate = ({ data, accentColor }) => {
 					{data.personal_info?.full_name || "Your Name"}
 				</h1>
 
+				{data.personal_info?.profession && (
+                    <p className="text-base text-white mb-3">
+                        {data.personal_info.profession}
+                    </p>
+                )}
+
 				<div className="grid grid-cols-1 sm:grid-cols-2 gap-2 text-sm ">
 					{data.personal_info?.email && (
 						<div className="flex items-center gap-2">
@@ -122,11 +128,17 @@ const ModernTemplate = ({ data, accentColor }) => {
 													p.name
 												)}
 											</h3>
+											{p.tech && (
+												<>
+                                                <span className="text-slate-500 mx-1">•</span>
+                                                <span className="text-slate-800 text-sm italic">{p.tech}</span>
+                                            </>
+											)}
+										</div>
 											<span className="text-sm text-gray-500 bg-gray-100 px-3 py-1 rounded">
 												{formatDate(p.start_date)} - {p.end_date ? formatDate(p.end_date) : "Present"}
 											</span>
 
-										</div>
 									</div>
 									{p.description && (
 										<div className="text-gray-700 leading-relaxed text-sm mt-3">

@@ -17,6 +17,12 @@ const MinimalTemplate = ({ data, accentColor }) => {
                     {data.personal_info?.full_name || "Your Name"}
                 </h1>
 
+                {data.personal_info?.profession && (
+                    <p className="text-base text-gray-600 font-medium mb-3">
+                        {data.personal_info.profession}
+                    </p>
+                )}
+
                 <div className="flex flex-wrap gap-6 text-sm text-gray-600">
                     {data.personal_info?.email && <span>{data.personal_info.email}</span>}
                     {data.personal_info?.phone && <span>{data.personal_info.phone}</span>}
@@ -91,6 +97,9 @@ const MinimalTemplate = ({ data, accentColor }) => {
                                         proj.name
                                     )}
                                 </h3>
+                                {proj.tech && (
+                                    <p className="text-slate-600 text-sm italic mt-1">{proj.tech}</p>
+                                )}
                                 <p className="text-sm text-gray-500">
                                     {formatDate(proj.start_date)} - {proj.end_date ? formatDate(proj.end_date) : "Present"}
                                 </p>

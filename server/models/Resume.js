@@ -31,7 +31,7 @@ const ResumeSchema = new mongoose.Schema({
     projects: [
         {
             name: { type: String },
-            type: { type: String },
+            tech: { type: String },
             description: { type: String },
             start_date: { type: String },
             end_date: { type: String },

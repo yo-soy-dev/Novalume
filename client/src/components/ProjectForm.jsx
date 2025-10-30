@@ -125,7 +125,7 @@ const ProjectForm = ({ data, onChange }) => {
     const newProject = {
       institution: "",
       name: "",
-      type: "",
+      tech: "",
       description: "",
       start_date: "",
       end_date: "",
@@ -158,7 +158,7 @@ const ProjectForm = ({ data, onChange }) => {
         <button
           onClick={addProject}
           className="flex items-center gap-2 px-4 py-2 text-sm bg-green-100
-          text-green-700 rounded-lg hover:bg-green-200 transition-colors w-full sm:w-auto justify-center"
+          text-green-700 rounded-lg transition-colors w-full sm:w-auto justify-center hover:bg-green-200"
         >
           <Plus className="size-4" />
           Add Project
@@ -190,14 +190,14 @@ const ProjectForm = ({ data, onChange }) => {
                 onChange={(e) => updateProject(index, "name", e.target.value)}
                 type="text"
                 placeholder="Project Name"
-                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-200"
+                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none"
               />
               <input
-                value={project.type || ""}
-                onChange={(e) => updateProject(index, "type", e.target.value)}
+                value={project.tech || ""}
+                onChange={(e) => updateProject(index, "tech", e.target.value)}
                 type="text"
-                placeholder="Project Type"
-                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-200"
+                placeholder="Tech Stack (e.g., Javascript, Java, Python, React.js, Next.js,)"
+                className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none"
               />
 
               <textarea
@@ -206,7 +206,7 @@ const ProjectForm = ({ data, onChange }) => {
                   updateProject(index, "description", e.target.value)
                 }
                 placeholder="Describe your Project..."
-                className="col-span-1 sm:col-span-2 px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-200 resize-none"
+                className="col-span-1 sm:col-span-2 px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none resize-none"
                 rows="3"
               />
 
@@ -217,7 +217,7 @@ const ProjectForm = ({ data, onChange }) => {
                     updateProject(index, "start_date", e.target.value)
                   }
                   type="month"
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-200"
+                  className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none"
                 />
                 <input
                   value={project.end_date || ""}
@@ -225,7 +225,7 @@ const ProjectForm = ({ data, onChange }) => {
                     updateProject(index, "end_date", e.target.value)
                   }
                   type="month"
-                  className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-200"
+                  className="w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none"
                 />
               </div>
 
@@ -234,7 +234,7 @@ const ProjectForm = ({ data, onChange }) => {
                 onChange={(e) => updateProject(index, "link", e.target.value)}
                 type="url"
                 placeholder="Project Link (optional)"
-                className="col-span-1 sm:col-span-2 w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-green-200"
+                className="col-span-1 sm:col-span-2 w-full px-3 py-2 text-sm rounded-lg border border-gray-300 focus:outline-none"
               />
             </div>
           </div>
