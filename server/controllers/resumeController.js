@@ -141,7 +141,6 @@ export const updateResume = async (req, res) => {
     console.log("Remove background:", removeBackground);
     console.log("Raw resumeData type:", typeof resumeData);
 
-    // 🧩 Parse resumeData safely
     let resumeDataCopy =
       typeof resumeData === "string" ? JSON.parse(resumeData) : resumeData;
 
@@ -153,13 +152,11 @@ export const updateResume = async (req, res) => {
     console.log("Incoming resumeData keys:", Object.keys(resumeDataCopy || {}));
     console.log("Incoming title:", resumeDataCopy.title);
 
-    // 🧩 Clean up ID
     if (resumeDataCopy._id) {
       delete resumeDataCopy._id;
       console.log("Removed _id from resumeDataCopy");
     }
 
-    // 🧩 Find old resume
     const oldResume = await Resume.findOne({ userId, _id: resumeId });
     if (!oldResume) {
       console.log("❌ Resume not found for user:", userId);
@@ -168,13 +165,11 @@ export const updateResume = async (req, res) => {
 
     console.log("Old title in DB:", oldResume.title);
 
-    // 🧠 Preserve title if missing or blank
     if (!resumeDataCopy.title || resumeDataCopy.title.trim() === "") {
       console.log("⚠️ Title missing in update — preserving old title");
       resumeDataCopy.title = oldResume.title;
     }
 
-    // 🖼️ Handle image upload
     if (image) {
       console.log("📸 Uploading new image to ImageKit...");
       const imageBufferData = fs.createReadStream(image.path);

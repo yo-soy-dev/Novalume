@@ -90,28 +90,6 @@ const Dashboard = () => {
 }
   };
 
-//   const deleteResume = async (resumeId) => {
-    
-//     try {
-//     const confirm = window.confirm("Are you sure you want to delete this resume?");
-//     if(confirm){
-//     const { data } = await api.delete(`/api/resumes/delete/${resumeId}`, {
-//       headers: {
-//          Authorization: token
-//       },
-//     });
-
-//     setAllResumes((allResumes) =>
-//       allResumes.filter((resume) => resume._id !== resumeId)
-//     );
-
-//     toast.success(data.message || "Resume deleted successfully");
-//   }
-//   } catch (error) {
-//     toast.error(error?.response?.data?.message || error.message);
-//   }
-// };
-
 
 const handleDeleteConfirm = (resumeId) => {
   toast((t) => (
@@ -122,7 +100,6 @@ const handleDeleteConfirm = (resumeId) => {
       </p>
 
       <div className="flex justify-end gap-2 mt-3">
-        {/* ✅ Confirm button */}
         <button
           onClick={async () => {
             toast.dismiss(t.id);
@@ -145,7 +122,6 @@ const handleDeleteConfirm = (resumeId) => {
           Yes, Delete
         </button>
 
-        {/* ❌ Cancel button */}
         <button
           onClick={() => toast.dismiss(t.id)}
           className="bg-gray-200 hover:bg-gray-300 text-gray-800 px-3 py-1 rounded-md text-xs"

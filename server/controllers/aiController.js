@@ -156,7 +156,6 @@ Provide data in the following JSON format with no additional text before or afte
       education: parsedData.education || [],
     };
 
-    // 🧩 Create in MongoDB
     const newResume = await Resume.create(resumePayload);
 
     // const newResume = await Resume.create({

@@ -1,10 +1,12 @@
 import express from "express";
 import {
+  forgotPassword,
   getUserById,
   getUserResumes,
   login,
   logout,
-  register
+  register,
+  resetPassword
 } from "../controllers/userController.js";
 import protect from "../middlewares/authMiddleware.js";
 
@@ -15,5 +17,7 @@ userRouter.post('/login', login);
 userRouter.get('/data', protect, getUserById);
 userRouter.get('/resumes', protect, getUserResumes);
 userRouter.get('/logout', protect, logout);
+userRouter.post("/forgot-password", forgotPassword);
+userRouter.post("/reset-password", resetPassword);
 
 export default userRouter;

@@ -682,9 +682,6 @@ const ResumeBuilder = () => {
               </div>
 
               <button
-                // onClick={() =>
-                //   toast.promise(saveResume(), { loading: "Saving..." })
-                // }
                 onClick={() =>
                   toast.promise(saveResume(), {
                     loading: "Saving...",
@@ -738,7 +735,6 @@ const ResumeBuilder = () => {
               </div>
             </div>
 
-            {/* ✅ Prevent null template crash */}
             {/* {isLoading ? (
               <div className="text-center py-10 text-gray-500">
                 Loading resume...
