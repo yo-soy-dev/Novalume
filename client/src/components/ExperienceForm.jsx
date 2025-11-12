@@ -1,4 +1,4 @@
-import { Briefcase, Plus, Sparkles, Trash2 } from 'lucide-react'
+import { Loader2, Briefcase, Plus, Sparkles, Trash2 } from 'lucide-react'
 import React, { useState } from 'react'
 import toast from 'react-hot-toast'
 import { useSelector } from 'react-redux'
@@ -41,6 +41,7 @@ const ExperienceForm = ({ data, onChange }) => {
         try {
             const { data: responseData } = await api.post('/api/ai/enhance-job-desc', { userContent: prompt }, {
                 headers: { Authorization: token }
+                // headers: { Authorization: `Bearer ${token}` }
             })
             updateExperience(index, "description", responseData.enhancedContent)
         } catch (error) {
@@ -125,6 +126,7 @@ const ExperienceForm = ({ data, onChange }) => {
                                 <div className="flex items-center justify-between">
                                     <label className='text-sm font-medium text-gray-700'>Job Description</label>
                                     <button
+                                    type="button"
                                         onClick={() => generateDescription(index)}
                                         disabled={generatingIndex === index || !experience.position || !experience.company}
                                         className='flex items-center gap-1 px-2 py-1 text-xs bg-purple-100 text-purple-700 rounded hover:bg-purple-200 transition-colors disabled:opacity-50'
