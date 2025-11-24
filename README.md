@@ -1,4 +1,4 @@
-# **Novalume – AI-Powered Resume Builder (MERN Stack)**
+# **NOVALUME – AI-Powered Resume Builder (MERN Stack)**
 
 Novalume is a modern, intelligent, and beautifully crafted **AI-powered Resume Builder Web App** built using the MERN stack. It helps users create professional resumes, optimize their content using Google Gemini AI, and share them online with a clean, live-preview interface.
 
