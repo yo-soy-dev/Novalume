@@ -375,7 +375,7 @@ const ResumeBuilder = () => {
     professional_summary: "",
     experience: [],
     education: [],
-    project: [],
+    projects: [],
     skills: [],
     template: "classic",
     accent_color: "#3B82F6",
@@ -409,7 +409,7 @@ const ResumeBuilder = () => {
             professional_summary: fetched?.professional_summary ?? prev.professional_summary,
             experience: fetched?.experience ?? prev.experience,
             education: fetched?.education ?? prev.education,
-            project: fetched?.project ?? prev.project,
+            projects: fetched?.projects ?? prev.projects,
             skills: fetched?.skills ?? prev.skills,
             template: fetched?.template || prev.template || "classic",
             accent_color: fetched?.accent_color || prev.accent_color || "#3B82F6",
@@ -659,11 +659,11 @@ const ResumeBuilder = () => {
                 )}
                 {activeSection.id === "projects" && (
                   <ProjectForm
-                    data={resumeData.project}
+                    data={resumeData.projects}
                     onChange={(data) =>
                       setResumeData((prev) => ({
                         ...prev,
-                        project: data,
+                        projects: data,
                       }))
                     }
                   />

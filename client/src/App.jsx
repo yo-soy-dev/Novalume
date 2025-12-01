@@ -19,6 +19,7 @@ const App = () => {
 
   const getUserData = async () => {
     const token = localStorage.getItem('token')
+    console.log('Sending token:', token);
     try {
       if (token) {
         const { data } = await api.get('/api/users/data', {

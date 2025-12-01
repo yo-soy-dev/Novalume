@@ -22,7 +22,7 @@ if (loading) {
       </div>  
     ) : (  
       <Login />  
-    )}  
+    )}
 
     </div>
   )

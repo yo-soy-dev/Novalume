@@ -22,7 +22,13 @@ const Hero = () => {
                 {/* Navbar */}
                 <nav className="z-50 flex items-center justify-between w-full py-4 px-6 md:px-16 lg:px-24 xl:px-40 text-sm">
                     <a href="#">
-                        <img src={logo} alt="logo" className='h-11 w-auto' />
+                        {/* <img src={logo} alt="logo" className='h-11 w-auto' /> */}
+                        <h1
+                            className="text-3xl font-bold flex items-center gap-1"
+                        >
+                            <span className="text-gray-900">Novalume</span>
+                            <span className="w-3 h-3 bg-green-500 rounded-full inline-block"></span>
+                        </h1>
                     </a>
 
                     <div className="hidden md:flex items-center gap-8 transition duration-500 text-slate-800">
