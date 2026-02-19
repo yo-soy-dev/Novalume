@@ -141,7 +141,7 @@ Node.js v18+ and accounts for:
 
 **1 — Clone**
 ```bash
-git clone https://github.com/yourusername/novalume.git
+git clone https://github.com/yo-soy-dev/Novalume.git
 cd novalume
 ```
 
